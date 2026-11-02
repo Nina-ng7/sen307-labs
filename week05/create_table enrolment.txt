@@ -1,0 +1,13 @@
+CREATE TABLE `enrolment` (
+  `enrolment_id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int NOT NULL,
+  `course_id` int NOT NULL,
+  `academic_session` varchar(9) NOT NULL DEFAULT '2026/2027',
+  `semester` enum('First','Second') NOT NULL DEFAULT 'First',
+  `enrolled_on` date DEFAULT (curdate()),
+  PRIMARY KEY (`enrolment_id`),
+  UNIQUE KEY `student_id` (`student_id`,`course_id`,`academic_session`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `enrolment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`),
+  CONSTRAINT `enrolment_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
